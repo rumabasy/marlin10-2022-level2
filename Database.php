@@ -1,16 +1,27 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of Database
- *
- * @author User
- */
 class Database {
-    //put your code here
+    private static $instance=null;
+    private $pdo;
+
+
+    private function __construct() {
+        try{
+            $this->pdo = new PDO('mysql:host=localhost;dbname=marlin', 'root', '');
+            echo 'Ok';
+        } catch (PDOException $exception){
+            die($exception->getMessage());
+        }    
+    }
+
+    public static function getInstance(){
+        if(!isset(self::$instance)){            
+            self::$instance = new Database();
+        }
+        return self::$instance;
+    }
+    
+    
+    
+    
 }

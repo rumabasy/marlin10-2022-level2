@@ -1,0 +1,4 @@
+db = 'localhost', 'marlin', 'root, ''
+tables:
+users: id, username, password
+
