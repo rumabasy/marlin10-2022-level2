@@ -1,11 +1,11 @@
 <?php
 require_once 'Database.php';
 
-Database::getInstance();
-echo '<br>';
-var_dump($expression=Database::getInstance());
-        
-//        ->query('SELECT * FROM users');
+$userz=Database::getInstance()->query('SELECT * FROM userz');
+
+foreach ($userz as $user) {
+    echo '<br>'. $user->username;
+}
 //Database::getInstance()->query("SELECT * FROM users WHERE username=?", ['Sergii']);
 //$users=Database::getInstance()->get('users', ['name', '=', 'marlin']);
 //

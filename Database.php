@@ -8,7 +8,7 @@ class Database {
     private function __construct() {
         try{
             $this->pdo = new PDO('mysql:host=localhost;dbname=marlin', 'root', '');
-            echo 'Ok';
+//            echo 'Ok';
         } catch (PDOException $exception){
             die($exception->getMessage());
         }    
@@ -21,7 +21,12 @@ class Database {
         return self::$instance;
     }
     
-    
+    public function query($sql) {
+        $query = $this->pdo->prepare($sql);
+        $query->execute();
+        $result=$query->fetchAll(PDO::FETCH_OBJ);
+        return $result ;
+    }
     
     
 }
