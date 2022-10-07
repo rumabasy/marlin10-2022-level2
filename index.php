@@ -3,6 +3,9 @@ require_once 'Database.php';
 
 $userz=Database::getInstance()->query('SELECT * FROM userz');
 
+var_dump($userz);
+echo '<br>';
+
 foreach ($userz as $user) {
     echo '<br>'. $user->username;
 }

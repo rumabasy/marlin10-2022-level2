@@ -1,7 +1,7 @@
 <?php
 
 class Database {
-    private static $instance=null;
+    private static $instance=null;//подключение, показывает запускался ли конструктор на подключение к базе
     private $pdo;
 
 
@@ -15,7 +15,7 @@ class Database {
     }
 
     public static function getInstance(){
-        if(!isset(self::$instance)){            
+        if(!isset(self::$instance)){    //если не было подключения то запускает конструктор этого класса и делает его        
             self::$instance = new Database();
         }
         return self::$instance;
@@ -24,7 +24,8 @@ class Database {
     public function query($sql) {
         $query = $this->pdo->prepare($sql);
         $query->execute();
-        $result=$query->fetchAll(PDO::FETCH_OBJ);
+        $result=$query->fetchAll(PDO::FETCH_OBJ);//FETCH_OBJ потомучто мы используем ООП и мы работаем с объектами класса
+        // возвращаем массив из объектов
         return $result ;
     }
     
