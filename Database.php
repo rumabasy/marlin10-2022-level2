@@ -1,5 +1,10 @@
 <?php
-
+function dump($obj, $die=1){
+    echo '<pre>';
+    var_dump($obj);
+    echo '</pre>';
+    if($die==1) die;
+}
 class Database {
     private static $instance=null;//подключение, показывает запускался ли конструктор на подключение к базе
     private $pdo, $query, $error=false, $results, $count;
@@ -14,6 +19,13 @@ class Database {
         }    
     }
     
+    public static function getInstance(){
+        if(!isset(self::$instance)){    //если не было подключения то запускает конструктор этого класса и делает его        
+            self::$instance = new Database();
+        }
+        return self::$instance;
+    }
+    
     public function count(){
         return $this->count;
     }
@@ -23,13 +35,14 @@ class Database {
     }
 
     public function query($sql, $params=[]) {
-        // var_dump($params); die;
+        // dump($params);
         $this->error = false;
         $this->query = $this->pdo->prepare($sql);
         if(count($params)){
             $i=1;
             foreach ($params as $par) {
                 $this->query->bindValue($i, $par);//встроенная функция 1значит что $params[0]подставляется вместо первого вопроса в запросе
+                //с каждым $i связывается свой $par
                 $i++;
             }
         }
@@ -40,7 +53,6 @@ class Database {
             $this->count = $this->query->rowCount();//встроенная функция считает число строк в массиве
         }
         return $this ; //так возвращается весь текущий экземпляр объекта, все его параметры
-        // $this->query->execute();
         // возвращаем массив из объектов
     }
     
@@ -48,11 +60,5 @@ class Database {
         return $this->results;
     }
     
-    public static function getInstance(){
-        if(!isset(self::$instance)){    //если не было подключения то запускает конструктор этого класса и делает его        
-            self::$instance = new Database();
-        }
-        return self::$instance;
-    }
-    
+   
 }
