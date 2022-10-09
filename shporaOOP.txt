@@ -15,8 +15,6 @@ query('SELECT * FROM userz WHERE username IN (:username)', ['first user']);//в�
 сам query передаем в prepare, в виде $this->pdo->prepare($sql) чтобы исключить sql-инъекции
 ==============================================
 PDO.php:
-
-
 bindColumn($column,&$param,$type, $maxlen,$driverdata)//
 bindValue($i, $par)//связывает $i со значением $par; $i-индекс вопросительного знака в запросе
 in_array($operator, $operators)//возвращает тру если значение $operator есть в массиве $operators

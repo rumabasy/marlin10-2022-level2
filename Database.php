@@ -104,7 +104,7 @@ class Database {
 
             if(in_array($operator, $operators)){
                 $sql="SELECT * FROM {$table} WHERE {$field} {$operator} ?";
-                // dump([$value]);
+                // dump($sql);
                 if(!$this->query($sql, [$value])->error()){//если квери не имеет ошибок....то  возвращаем объект полученый запросом
                     return $this;//возвращаем объект полученый запросом
                 }

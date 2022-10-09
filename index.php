@@ -8,32 +8,32 @@ require_once 'Database.php';
 // $userz=Database::getInstance()->get0('userz', ['password','=','pass']);
 // $userz=Database::getInstance()->delete0('userz', ['password','=','pass4']);
 // $userz=Database::getInstance()->delete('userz', ['id','=','3']);
-$userz=Database::getInstance()->get('userz', ['password','=','pass9']);
+// $userz=Database::getInstance()->get('userz', ['password','=','pass9']);
 // Database::getInstance()->delete('userz', ['username','=','fiveth user']);
 
 
 // dump($userz,9);
 
-if($userz->error()){
-    echo 'we have an error<br>';
-} else {
-    foreach ($userz->results() as $user) {
-        echo '<br>'. $user->username;
-    }
+// if($userz->error()){
+//     echo 'we have an error<br>';
+// } else {
+//     foreach ($userz->results() as $user) {
+//         echo '<br>'. $user->username;
+//     }
 
-}
+// }
 
 echo '<br>';
-echo '<br>';
+// echo '<br>';
 
-if(Database::getInstance()->get0('userz', ['username','=','first user'])->count()<5){
-    foreach ($userz->results() as $user) {
-                echo '<br>'. $user->username;
+if( $user=Database::getInstance()->get0('userz', ['username','=','first user'])){
+    foreach ($user->results() as $use) {
+                echo '<br>'. $use->id;
             }
 }
 
 echo '<br>';
-// dump($userz);
+dump($user);
 
 
 
