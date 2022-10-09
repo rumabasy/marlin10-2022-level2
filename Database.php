@@ -2,7 +2,7 @@
 function dump($obj, $die=1){
     echo '<pre>';
     var_dump($obj);
-    echo '</pre>';
+    echo '</pre><br>';
     if($die==1) die;
 }
 class Database {
@@ -13,7 +13,6 @@ class Database {
     private function __construct() {
         try{
             $this->pdo = new PDO('mysql:host=localhost;dbname=marlin', 'root', '');
-//            echo 'Ok';
         } catch (PDOException $exception){
             die($exception->getMessage());
         }    
@@ -26,12 +25,92 @@ class Database {
         return self::$instance;
     }
     
+    public function action0($action, $table, $where = []){
+        if (count($where)===3){
+            $opers=['=','>','<','>=','<='];
+            $value=$where[2];
+            $oper=$where[1];
+            $field=$where[0];
+            if(in_array($oper,$opers)){
+                $sql = "{$action} FROM {$table} WHERE {$field} {$oper} ?";
+                dump($sql);
+                if(!$this->query($sql, [$value])->error()){
+                    return $this;
+                    return "{$action} {$value} ok";
+                } else  return "{$action} not happend";
+            }
+
+        }
+    }
+
+
     public function count(){
         return $this->count;
     }
     
     public function error(){
         return $this->error;
+    }
+
+    public function action($action,$table, $where=[]){
+        if(count($where)===3){
+            $operators=['=','>','<','>=','<='];//возможные операторы, для защиты
+            $field=$where[0];
+            $operator=$where[1];
+            $value=$where[2];
+
+            if(in_array($operator, $operators)){
+                $sql="{$action} FROM {$table} WHERE {$field} {$operator} ?";
+                if(!$this->query($sql, [$value])->error()){
+                    return $this;
+                }
+            }
+        }
+        return false;
+    }
+
+    public function delete($table, $where=[]){
+        return $this->action('DELETE',$table, $where);
+    }
+
+    
+    public function delete0($table, $where=[]){
+        if(count($where)===3){
+            $operators=['=','>','<','>=','<='];//возможные операторы, для защиты
+            $field=$where[0];
+            $operator=$where[1];
+            $value=$where[2];
+            
+            if(in_array($operator, $operators)){
+                $sql="DELETE FROM {$table} WHERE {$field} {$operator} ?";
+                if(!$this->query($sql, [$value])->error()){
+                    return $this;
+                }
+            }
+        }
+        return false;
+    }
+    
+    public function get($table, $where=[]){
+        return $this->action('SELECT *',$table, $where);
+    }
+
+    public function get0($table, $where=[]){
+        if(count($where)===3){
+            $operators=['=','>','<','>=','<='];//возможные операторы, для защиты
+            $field=$where[0];
+            $operator=$where[1];
+            $value=$where[2];
+
+            if(in_array($operator, $operators)){
+                $sql="SELECT * FROM {$table} WHERE {$field} {$operator} ?";
+                // dump([$value]);
+                if(!$this->query($sql, [$value])->error()){//если квери не имеет ошибок....то  возвращаем объект полученый запросом
+                    return $this;//возвращаем объект полученый запросом
+                }
+            }
+        }
+        return false;
     }
 
     public function query($sql, $params=[]) {
