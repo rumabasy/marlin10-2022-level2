@@ -11,14 +11,22 @@ require_once 'Database.php';
 // $userz=Database::getInstance()->get('userz', ['password','=','pass9']);
 // Database::getInstance()->delete('userz', ['username','=','fiveth user']);
 
-Database::getInstance()->insert('userz', [
-    'username'=>'Seregas',
-    'password' => 'pas',
-    'email' => 'my@e.mail',
-]);
+// Database::getInstance()->update('userz', 14, [
+    //     'username'=>'Serd',
+    //     'password' => 'ega1414',
+    // ]);
+    
+    // Database::getInstance()->insert('userz', [
+        //     'username'=>'Seregas',
+        //     'password' => 'pas',
+        //     'email' => 'my@e.mail',
+        // ]);
+        
+        $userz=Database::getInstance()->get('userz', ['id','=','16']);
 
-
-// dump($userz,9);
+dump($userz->get_first()->username,8);
+dump($userz->get_first()->id,8);
+dump($userz->get_first()->password,8);
 
 // if($userz->error()){
 //     echo 'we have an error<br>';

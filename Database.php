@@ -91,6 +91,11 @@ class Database {
         return false;
     }
     
+    public function get_first(){
+        return $this->results()[0];
+    }
+
+
     public function get($table, $where=[]){
         return $this->action('SELECT *',$table, $where);
     }
@@ -120,7 +125,7 @@ class Database {
         }
         // $values =rtrim( $values, ',');
         $sql = "INSERT INTO {$table} (`" .implode('`, `', array_keys($fields))."`) VALUES (" . rtrim( $values, ','). ")";
-        dump($sql);
+        // dump($sql);
 
         if(!$this->query($sql, $fields)->error()){
             return true;
@@ -128,7 +133,7 @@ class Database {
         return false;
         
     }
-
+    
     public function query($sql, $params=[]) {
         // dump($params);
         $this->error = false;
@@ -155,5 +160,22 @@ class Database {
         return $this->results;
     }
     
+    public function update($table, $id, $fields=[]){
+        $set = "";
+        foreach ($fields as $key=>$field){
+            $set .= "{$key} = ?,";
+        }
+        $set = rtrim($set, ",");
+        // $fields[]=$id;
+        // dump($fields);
+        $sql = "UPDATE {$table} SET {$set} WHERE id={$id}";
+        // $sql = "UPDATE {$table} SET {$set} WHERE id=?";
+
+        if(!$this->query($sql, $fields)->error()){
+            return true;
+        }
+        return false;
+        
+    }
    
 }

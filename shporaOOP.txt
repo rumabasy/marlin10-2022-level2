@@ -14,7 +14,12 @@ query('SELECT * FROM userz WHERE username=?', ['first user']);//? это пле�
 query('SELECT * FROM userz WHERE username IN (:username)', ['first user']);//вариант через метку для значения из массива
 сам query передаем в prepare, в виде $this->pdo->prepare($sql) чтобы исключить sql-инъекции
 $this->query = $this->pdo->prepare($sql);//prepare подготавливает запрос удаляя из него символы которые похожи на sql-инъекцию
- ? - это метка чтобы в запрос не попала sql-инъекция       
+ ? - это метка чтобы в запрос не попала sql-инъекция   
+ $sql = "UPDATE {$table} SET {$set} WHERE id={$id}";
+ $sql = "INSERT INTO {$table} (`" .implode('`, `', array_keys($fields))."`) VALUES (" . rtrim( $values, ','). ")";
+ $sql="DELETE FROM {$table} WHERE {$field} {$operator} ?";
+ $sql="SELECT * FROM {$table} WHERE {$field} {$operator} ?";
+ $sql="{$action} FROM {$table} WHERE {$field} {$operator} ?";           
 ==============================================
 PDO.php:
 array_keys($fields)//создает новый массив из ключей массива
