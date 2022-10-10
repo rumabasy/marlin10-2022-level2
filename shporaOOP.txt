@@ -13,13 +13,17 @@ query('SELECT * FROM userz WHERE username IN (?,?)', ['first user','third user']
 query('SELECT * FROM userz WHERE username=?', ['first user']);//? это плейсхолдер для значения из массива для bindValue
 query('SELECT * FROM userz WHERE username IN (:username)', ['first user']);//вариант через метку для значения из массива
 сам query передаем в prepare, в виде $this->pdo->prepare($sql) чтобы исключить sql-инъекции
+$this->query = $this->pdo->prepare($sql);//prepare подготавливает запрос удаляя из него символы которые похожи на sql-инъекцию
+ ? - это метка чтобы в запрос не попала sql-инъекция       
 ==============================================
 PDO.php:
+array_keys($fields)//создает новый массив из ключей массива
 bindColumn($column,&$param,$type, $maxlen,$driverdata)//
 bindValue($i, $par)//связывает $i со значением $par; $i-индекс вопросительного знака в запросе
 in_array($operator, $operators)//возвращает тру если значение $operator есть в массиве $operators
 fetchAll(PDO::FETCH_OBJ)//возвращает объект в результате запроса
 rowCount();//встроенная функция считает число строк в массиве
+implode('`, `', array_keys($fields))//функция соединяет в строку все члены массива вставляя между ними клей '`, `'
 ----------------------------------------------
 my_func.php:
 query($sql, [$value])

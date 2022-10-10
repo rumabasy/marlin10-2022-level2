@@ -11,6 +11,12 @@ require_once 'Database.php';
 // $userz=Database::getInstance()->get('userz', ['password','=','pass9']);
 // Database::getInstance()->delete('userz', ['username','=','fiveth user']);
 
+Database::getInstance()->insert('userz', [
+    'username'=>'Seregas',
+    'password' => 'pas',
+    'email' => 'my@e.mail',
+]);
+
 
 // dump($userz,9);
 
@@ -26,14 +32,14 @@ require_once 'Database.php';
 echo '<br>';
 // echo '<br>';
 
-if( $user=Database::getInstance()->get0('userz', ['username','=','first user'])){
-    foreach ($user->results() as $use) {
-                echo '<br>'. $use->id;
-            }
-}
+// if( $user=Database::getInstance()->get0('userz', ['username','=','first user'])){
+//     foreach ($user->results() as $use) {
+//                 echo '<br>'. $use->id;
+//             }
+// }
 
 echo '<br>';
-dump($user);
+// dump($user);
 
 
 

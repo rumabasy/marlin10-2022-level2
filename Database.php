@@ -113,10 +113,26 @@ class Database {
         return false;
     }
 
+    public function insert($table, $fields=[]){
+        $values = "";
+        foreach ($fields as $field){
+            $values .= "?,";
+        }
+        // $values =rtrim( $values, ',');
+        $sql = "INSERT INTO {$table} (`" .implode('`, `', array_keys($fields))."`) VALUES (" . rtrim( $values, ','). ")";
+        dump($sql);
+
+        if(!$this->query($sql, $fields)->error()){
+            return true;
+        }
+        return false;
+        
+    }
+
     public function query($sql, $params=[]) {
         // dump($params);
         $this->error = false;
-        $this->query = $this->pdo->prepare($sql);
+        $this->query = $this->pdo->prepare($sql);//prepare подготавливает запрос удаляя из него символы коьорые похожи на sql-инъекцию
         if(count($params)){
             $i=1;
             foreach ($params as $par) {
