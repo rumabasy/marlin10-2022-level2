@@ -1,6 +1,37 @@
 <?php
-require_once 'Database.php';
+    require_once 'Database.php';
+    require_once 'Config.php';
 
+$GLOBALS['config'] = [
+    'mysql' => [
+        'host' => 'localhost',
+        'username' => 'localhost',
+        'password' => '',
+        'database' => 'marlin',
+        'something' => [
+            'no' => 'yes'
+        ]
+    ],
+    
+    'config_my' => [
+        'no' => 'yes',
+        ]
+];
+
+echo Config::get('mysql.host');
+        
+        
+        
+        
+        
+        echo '<br>';
+        echo '<br>';
+
+
+
+//===============================================================
+//=======================old index checks========================
+//===============================================================
 // $userz=Database::getInstance()->query('SELECT * FROM userz WHERE username="first user"');//first user
 // $userz=Database::getInstance()->query('SELECT * FROM userz WHERE username=?', ['first user']);//first user
 // $userz=Database::getInstance()->query('SELECT * FROM userz WHERE username IN (?,?)', ['first user','third user']);//first user third user
@@ -22,11 +53,11 @@ require_once 'Database.php';
         //     'email' => 'my@e.mail',
         // ]);
         
-        $userz=Database::getInstance()->get('userz', ['id','=','16']);
+// $userz=Database::getInstance()->get('userz', ['id','=','16']);
 
-dump($userz->get_first()->username,8);
-dump($userz->get_first()->id,8);
-dump($userz->get_first()->password,8);
+// dump($userz->get_first()->username,8);
+// dump($userz->get_first()->id,8);
+// dump($userz->get_first()->password,8);
 
 // if($userz->error()){
 //     echo 'we have an error<br>';
@@ -37,18 +68,14 @@ dump($userz->get_first()->password,8);
 
 // }
 
-echo '<br>';
 // echo '<br>';
 
 // if( $user=Database::getInstance()->get0('userz', ['username','=','first user'])){
-//     foreach ($user->results() as $use) {
-//                 echo '<br>'. $use->id;
-//             }
-// }
+    //     foreach ($user->results() as $use) {
+        //                 echo '<br>'. $use->id;
+        //             }
+        // }
+        
+        // dump($user);
 
-echo '<br>';
-// dump($user);
-
-
-
-
+?>
