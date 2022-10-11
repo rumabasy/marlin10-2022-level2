@@ -5,7 +5,7 @@
 $GLOBALS['config'] = [
     'mysql' => [
         'host' => 'localhost',
-        'username' => 'localhost',
+        'username' => 'root',
         'password' => '',
         'database' => 'marlin',
         'something' => [
@@ -14,24 +14,25 @@ $GLOBALS['config'] = [
     ],
     
     'config_my' => [
-        'no' => 'yes',
+        'no' => 'yeees',
         ]
 ];
 
-echo Config::get('mysql.host');
         
         
         
-        
-        
-        echo '<br>';
-        echo '<br>';
-
+//        
+//        
+//        echo '<br>';
+//        echo '<br>';
+//
 
 
 //===============================================================
 //=======================old index checks========================
 //===============================================================
+// echo Config::get('mysql.host');//localhost
+
 // $userz=Database::getInstance()->query('SELECT * FROM userz WHERE username="first user"');//first user
 // $userz=Database::getInstance()->query('SELECT * FROM userz WHERE username=?', ['first user']);//first user
 // $userz=Database::getInstance()->query('SELECT * FROM userz WHERE username IN (?,?)', ['first user','third user']);//first user third user
@@ -39,7 +40,8 @@ echo Config::get('mysql.host');
 // $userz=Database::getInstance()->get0('userz', ['password','=','pass']);
 // $userz=Database::getInstance()->delete0('userz', ['password','=','pass4']);
 // $userz=Database::getInstance()->delete('userz', ['id','=','3']);
-// $userz=Database::getInstance()->get('userz', ['password','=','pass9']);
+//$userz=Database::getInstance()->get('userz', ['password','=','pass']);
+//  dump($userz);
 // Database::getInstance()->delete('userz', ['username','=','fiveth user']);
 
 // Database::getInstance()->update('userz', 14, [

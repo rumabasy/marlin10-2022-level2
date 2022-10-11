@@ -1,4 +1,5 @@
 <?php
+//require_once 'Config.php';
 function dump($obj, $die=1){
     echo '<pre>';
     var_dump($obj);
@@ -12,7 +13,7 @@ class Database {
 
     private function __construct() {
         try{
-            $this->pdo = new PDO('mysql:host=localhost;dbname=marlin', 'root', '');
+            $this->pdo = new PDO('mysql:host='.Config::get('mysql.host').';dbname='.Config::get('mysql.database'),Config::get('mysql.username'), Config::get('mysql.password'));
         } catch (PDOException $exception){
             die($exception->getMessage());
         }    
