@@ -7,10 +7,10 @@ class Validate {
         $this->db = Database::getInstance();
     }
 
-    public function check($source, $items = []){
+    public function check($post, $items = []){
         foreach($items as $item => $rules){
-            foreach($rules as $rule_value){
-                $value = $source[$item];
+            foreach($rules as $rule => $rule_value){
+                $value = $post[$item];
                 if($rule == 'required' && empty($value)){
                     $this->addError("{$item} is required");
                 } else if(!empty($value)){
@@ -26,7 +26,7 @@ class Validate {
                             }
                         break;
                         case 'matches':
-                            if($value != $source[$rule_value]){
+                            if($value != $post[$rule_value]){
                                 $this->addError("{$rule_value} must match  {$item}.");
                             }
                         break;

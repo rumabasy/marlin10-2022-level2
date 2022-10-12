@@ -1,8 +1,8 @@
 <?php
     require_once 'Database.php';
     require_once 'Config.php';
-    require_once 'Input.php';
     require_once 'Validate.php';
+    require_once 'Input.php';
 
 $GLOBALS['config'] = [
     'mysql' => [
@@ -13,10 +13,10 @@ $GLOBALS['config'] = [
     ]
 ];
 
-// dump($_POST);
+// dump($_POST,2);
+// dump($_GET,2);
 
 if(Input::exists()){
-    // dump('22');
     $validate = new Validate();
 
     $validation = $validate->check($_POST, [
@@ -24,7 +24,7 @@ if(Input::exists()){
             'required' => true,//требуется для заполнения обязательно
             'min' => 2,
             'max' => 15,
-            'unique' => 'userz'//должен быть уникальным в таблице 'users'
+            'unique' => 'userz'//должно быть уникальное имя таблицы = 'userz'
         ],
         'password' => [
             'required' => true,
@@ -35,6 +35,7 @@ if(Input::exists()){
             'matches' => 'password'//должен совпадать со значением поля пассворд
         ]
     ]);
+    // dump($validation,3);
 
     if($validation->passed()){
         echo 'passed';
@@ -43,7 +44,8 @@ if(Input::exists()){
             echo $error.'<br>';
         }
     }  
-}        
+}   
+  
 ?>   
 
 
