@@ -1,4 +1,6 @@
 <?php
+    session_start();
+
     require_once 'Database.php';
     require_once 'Config.php';
     require_once 'Validate.php';
@@ -17,7 +19,7 @@ $GLOBALS['config'] = [
         'token_name' => 'token'
     ]
 ];
-
+dump($_SESSION,4);
 if(Input::exists()){
     if(Token::check(Input::get('token'))){
         $validate = new Validate();
