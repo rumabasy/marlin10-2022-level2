@@ -3,6 +3,8 @@
     require_once 'Config.php';
     require_once 'Validate.php';
     require_once 'Input.php';
+    require_once 'Token.php';
+    require_once 'Session.php';
 
 $GLOBALS['config'] = [
     'mysql' => [
@@ -10,40 +12,42 @@ $GLOBALS['config'] = [
         'username' => 'root',
         'password' => '',
         'database' => 'marlin',
+    ],
+    'session' => [
+        'token_name' => 'token'
     ]
 ];
 
-// dump($_POST,2);
-// dump($_GET,2);
-
 if(Input::exists()){
-    $validate = new Validate();
+    if(Token::check(Input::get('token'))){
+        $validate = new Validate();
+    
+        $validation = $validate->check($_POST, [
+            'username' => [
+                'required' => true,//требуется для заполнения обязательно
+                'min' => 2,
+                'max' => 15,
+                'unique' => 'userz'//должно быть уникальное имя таблицы = 'userz'
+            ],
+            'password' => [
+                'required' => true,
+                'min' => 3
+            ],
+            'password_again' => [
+                'required' => true,
+                'matches' => 'password'//должен совпадать со значением поля пассворд
+            ]
+        ]);
+    
+        if($validation->passed()){
+            echo 'passed';
+        } else {
+            foreach($validation->errors() as $error){
+                echo $error.'<br>';
+            }
+        }  
 
-    $validation = $validate->check($_POST, [
-        'username' => [
-            'required' => true,//требуется для заполнения обязательно
-            'min' => 2,
-            'max' => 15,
-            'unique' => 'userz'//должно быть уникальное имя таблицы = 'userz'
-        ],
-        'password' => [
-            'required' => true,
-            'min' => 3
-        ],
-        'password_again' => [
-            'required' => true,
-            'matches' => 'password'//должен совпадать со значением поля пассворд
-        ]
-    ]);
-    // dump($validation,3);
-
-    if($validation->passed()){
-        echo 'passed';
-    } else {
-        foreach($validation->errors() as $error){
-            echo $error.'<br>';
-        }
-    }  
+    }
 }   
   
 ?>   
@@ -65,6 +69,8 @@ if(Input::exists()){
         <input type="text" name="password_again">
     </div>
     
+    <input type="hidden" name='token' value="<?php echo Token::generate();  ?>" >
+
     <div class="field">
         <button type="submit">Submit</button>
     </div>
