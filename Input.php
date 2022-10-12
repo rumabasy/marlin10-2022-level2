@@ -20,6 +20,6 @@ class Input {
         } else if(isset($_GET[$item])){
             return $_GET[$item];
         }
-        return '';
+        return ''; //важно вернуть пустое значение, чтобы там где подставляется была пустая строка
     }
 }

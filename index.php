@@ -10,25 +10,21 @@ $GLOBALS['config'] = [
         'username' => 'root',
         'password' => '',
         'database' => 'marlin',
-        'something' => [
-            'no' => 'yes'
-        ]
-    ],
-    
-    'config_my' => [
-        'no' => 'yeees',
-        ]
+    ]
 ];
 
+// dump($_POST);
+
 if(Input::exists()){
+    // dump('22');
     $validate = new Validate();
 
     $validation = $validate->check($_POST, [
         'username' => [
-            'required' => true,
+            'required' => true,//требуется для заполнения обязательно
             'min' => 2,
             'max' => 15,
-            'unique' => 'users'
+            'unique' => 'userz'//должен быть уникальным в таблице 'users'
         ],
         'password' => [
             'required' => true,
@@ -36,7 +32,7 @@ if(Input::exists()){
         ],
         'password_again' => [
             'required' => true,
-            'matches' => 'password'
+            'matches' => 'password'//должен совпадать со значением поля пассворд
         ]
     ]);
 
@@ -46,8 +42,7 @@ if(Input::exists()){
         foreach($validation->errors() as $error){
             echo $error.'<br>';
         }
-    } 
-        
+    }  
 }        
 ?>   
 
