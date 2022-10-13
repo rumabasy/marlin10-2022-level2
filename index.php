@@ -19,7 +19,8 @@ $GLOBALS['config'] = [
         'token_name' => 'token'
     ]
 ];
-dump($_SESSION,4);
+// dump($_SESSION,4);
+// dump($_POST,4);
 if(Input::exists()){
     if(Token::check(Input::get('token'))){
         $validate = new Validate();
@@ -42,7 +43,9 @@ if(Input::exists()){
         ]);
     
         if($validation->passed()){
-            echo 'passed';
+            // echo 'passed';
+            Session::flash('success', 'register success');
+            // header ('Location: /test.php');
         } else {
             foreach($validation->errors() as $error){
                 echo $error.'<br>';
@@ -52,10 +55,11 @@ if(Input::exists()){
     }
 }   
   
+echo Session::flash('success');
 ?>   
 
-
 <form action="" method="post">
+    <?php   ?>
     <div class="field">
         <label for="username">Username</label>
         <input type="text" name="username" value="<?php echo Input::get('username')?>">
