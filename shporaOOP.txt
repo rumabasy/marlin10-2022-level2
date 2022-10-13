@@ -19,7 +19,9 @@ $sql = "UPDATE {$table} SET {$set} WHERE id={$id}";
 $sql = "INSERT INTO {$table} (`" .implode('`, `', array_keys($fields))."`) VALUES (" . rtrim( $values, ','). ")";
 $sql="DELETE FROM {$table} WHERE {$field} {$operator} ?";
 $sql="SELECT * FROM {$table} WHERE {$field} {$operator} ?";
-$sql="{$action} FROM {$table} WHERE {$field} {$operator} ?";           
+$sql="{$action} FROM {$table} WHERE {$field} {$operator} ?";     
+filter_var(test@mail.ru) ---вернет test@mail.ru
+filter_var(test1mail.ru) ---вернет bool(false)
 ==============================================
 PDO.php:
 array_keys($fields)//создает новый массив из ключей массива
@@ -37,4 +39,6 @@ action($action,$table, $where=[])
 delete($table, $where=[])
 get($table, $where=[])
 ----------------------------------------------
-6й закончил
+configuration 9 пересмотреть
+validate 10 пересмотреть
+token 11 пересмотреть 

@@ -58,7 +58,7 @@ echo Session::flash('success');
 
     <div class="field">
         <label for="email">Email</label>
-        <input type="email" name="email" value="<?php echo Input::get('email')?>">
+        <input type="text" name="email" value="<?php echo Input::get('email')?>">
     </div>
 
     <div class="field">
