@@ -7,6 +7,7 @@
     require_once 'Input.php';
     require_once 'Token.php';
     require_once 'Session.php';
+    require_once 'User.php';
 
 $GLOBALS['config'] = [
     'mysql' => [
@@ -43,7 +44,12 @@ if(Input::exists()){
         ]);
     
         if($validation->passed()){
-            // echo 'passed';
+                        
+            $user =new User;
+            $user->create([
+               'username' => Input::get('username'),
+               'password' => password_hash(Input::get('password'), PASSWORD_DEFAULT),
+            ]);
             Session::flash('success', 'register success');
             // header ('Location: /test.php');
         } else {

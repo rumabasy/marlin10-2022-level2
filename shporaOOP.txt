@@ -29,6 +29,7 @@ in_array($operator, $operators)//возвращает тру если значе
 fetchAll(PDO::FETCH_OBJ)//возвращает объект в результате запроса
 rowCount();//встроенная функция считает число строк в массиве
 implode('`, `', array_keys($fields))//функция соединяет в строку все члены массива вставляя между ними клей '`, `'
+password_hash(Input::get('password'), PASSWORD_DEFAULT)//PASSWORD_DEFAULT-дефолтный алгоритм кеширования
 ----------------------------------------------
 my_func.php:
 query($sql, [$value])
