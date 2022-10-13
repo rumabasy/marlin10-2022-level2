@@ -8,6 +8,7 @@
     require_once 'Token.php';
     require_once 'Session.php';
     require_once 'User.php';
+    require_once 'Redirect.php';
 
 $GLOBALS['config'] = [
     'mysql' => [
@@ -43,6 +44,8 @@ if(Input::exists()){
             ]
         ]);
     
+        // Redirect::to('test.php');
+        // Redirect::to(404);
         if($validation->passed()){
                         
             $user =new User;
@@ -52,6 +55,7 @@ if(Input::exists()){
             ]);
             Session::flash('success', 'register success');
             // header ('Location: /test.php');
+            
         } else {
             foreach($validation->errors() as $error){
                 echo $error.'<br>';
