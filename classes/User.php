@@ -64,5 +64,9 @@ class User {
         
     }
 
+    public function logout(){
+           return Session::delete($this->session_name);            
+    }
+
 
 }
