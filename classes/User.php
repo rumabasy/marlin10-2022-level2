@@ -6,7 +6,7 @@ class User {
     public function __construct($user=null){
         $this->db = Database::getInstance();
         $this->session_name = Config::get('session.user_session');
-
+        // exit;
         if(!$user){
             if(Session::exists($this->session_name)){
                 $user = Session::get($this->session_name);//id
@@ -18,6 +18,8 @@ class User {
                 }
                 
             }
+        } else {
+            $this->find($user);
         }
     }
     public function create($fields = []){
@@ -31,7 +33,6 @@ class User {
     public function find($value = null){
         if(is_numeric($value)){
             $this->data = $this->db->get('userz', ['id', '=', $value])->get_first();
-
         } else {
             $this->data = $this->db->get('userz', ['email', '=', $value])->get_first();
 
